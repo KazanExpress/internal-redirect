@@ -20,5 +20,3 @@ jobs:
       run: ./hadolint Dockerfile
     - name: Linting JavaScript files
       run: npx eslint .
-    - name: Commiting changes
-      run: git-cz
