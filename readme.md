@@ -11,3 +11,11 @@ This page could be parametrized using these environment variables:
 * `TITLE` - h1 and page title string
 * `MESSAGE` - message under title
 * `BUTTON` - text on redirect button
+
+## Usage
+
+```bash
+docker pull ghcr.io/kazanexpress/internal-redirect:latest
+
+docker run -p 3000:3000 ghcr.io/kazanexpress/internal-redirect:latest
+```
