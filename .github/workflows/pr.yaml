@@ -13,10 +13,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Install dependencies
       run: |
-        wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
+        wget -O ./hadolint https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
         npm install -g eslint commitizen jq
     - name: Linting Dockerfile
-      run: hadolint Dockerfile
+      run: ./hadolint Dockerfile
     - name: Linting JavaScript files
       run: npx eslint .
     - name: Commiting changes
