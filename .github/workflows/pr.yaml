@@ -1,0 +1,24 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y hadolint
+        npm install -g eslint commitizen jq
+    - name: Linting Dockerfile
+      run: hadolint Dockerfile
+    - name: Linting JavaScript files
+      run: npx eslint .
+    - name: Commiting changes
+      run: git-cz
