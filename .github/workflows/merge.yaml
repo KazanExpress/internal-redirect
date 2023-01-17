@@ -17,7 +17,6 @@ jobs:
 
       - name: lint commit message
         run: |
-          git config --global --add safe.directory /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}/
           cz check -m "$(git log -1 --pretty=%B)"
       - name: bump & push
         run: |
