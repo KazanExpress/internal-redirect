@@ -13,8 +13,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y hadolint
+        wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
         npm install -g eslint commitizen jq
     - name: Linting Dockerfile
       run: hadolint Dockerfile
