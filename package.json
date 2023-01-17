@@ -1,0 +1,13 @@
+{
+  "name": "safe-redirect",
+  "version": "1.0.0",
+  "description": "Internal redirect application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}

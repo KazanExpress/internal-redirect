@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= process.env.TITLE %></title>
+    <script>
+      function redirect() {
+        var redirectUrl = new URL(window.location.href).searchParams.get("redirect");
+        window.location.href = redirectUrl;
+      }
+    </script>
+  </head>
+  <body>
+    <h1><%= process.env.TITLE %></h1>
+    <p> <%= process.env.MESSAGE %> </p>
+    <button onclick="redirect()"><%= process.env.BUTTON %></button>
+    <p>If you are unable to use JavaScript, please click <a href="<%= redirect %>">here</a> to redirect.</p>
+  </body>
+</html>
