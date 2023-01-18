@@ -1,0 +1,22 @@
+{{- if .Values.server.autoscaling.enabled }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "server.name" . | quote }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "server.name" . | quote }}
+  {{- if .Values.server.autoscaling.envSourceContainerName }}
+    envSourceContainerName: {{ .Values.server.autoscaling.envSourceContainerName }}
+  {{- end }}
+  pollingInterval: {{ .Values.server.autoscaling.poolingInterval }}
+  cooldownPeriod: {{ .Values.server.autoscaling.cooldownPeriod }}
+  minReplicaCount: {{ .Values.server.autoscaling.replicas.min }}
+  maxReplicaCount: {{ .Values.server.autoscaling.replicas.max }}
+  {{- with .Values.server.autoscaling.triggers }}
+  triggers: {{ toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

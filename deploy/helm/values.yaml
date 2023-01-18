@@ -1,0 +1,188 @@
+# Image pull policy. Possible values: Always, Never, IfNotPresent.
+pullPolicy: IfNotPresent
+# Image pull secret name.
+pullSecret: ""
+
+# Jaeger configuration.
+jaeger:
+  agent:
+    image: jaegertracing/jaeger-agent:latest
+  collector:
+    endpoint: dns:///jaeger-collector:14250
+
+# Server configuration.
+server:
+  # override full name of server
+  nameOverride: ~
+  # Docker image of the server application.
+  image: "ghcr.io/kazanexpress/internal-redirect:v0.2.0"
+
+  autoscaling:
+    enabled: false
+    # https://keda.sh/docs/2.3/concepts/scaling-deployments/#details
+    envSourceContainerName: ""
+    replicas:
+      # The minimum number of replicas
+      min: 1
+      # The maximum number of replicas
+      max: 3
+    # the interval to check each trigger on (in sec)
+    poolingInterval: 30
+    # period to wait after the last trigger reported active before scaling the resource back to minCount
+    cooldownPeriod: 300
+    triggers:
+      - type: cpu
+        metricType: Utilization
+        metadata:
+          value: "80"
+      - type: memory
+        metricType: Utilization
+        metadata:
+          value: "80"
+      - type: prometheus
+        metadata:
+          serverAddress: http://prometheus-operator-kube-p-prometheus:9090
+          metricName: requests_total
+          query: sum(rate(requests_total{job="example"}[3m])) # change to correct job name
+          threshold: "60"
+
+  # Application level configs.
+  config:
+    debug: true
+    logger:
+      level: trace
+
+  # The resources allocated for each replica, both requests and limits.
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 128Mi
+      cpu: 100m
+
+  # Service configuration. Use for cluster migration.
+  service:
+    # Is service enabled?
+    enabled: false
+    type: ClusterIP
+    nameOverride: ""
+    annotations: {}
+    ports:
+      # API configuration.
+      - name: api
+        # Protocol configuration
+        protocol: TCP
+        # Port configuration.
+        ports:
+          # Port inside the container.
+          internal: 8080
+          # External service port.
+          external: 80
+      # Example API version 2 configuration
+      - name: api_v2
+        # Protocol configuration
+        protocol: UDP
+        #example new port
+        ports:
+          # Port inside the container.
+          internal: 8081
+          # External service port.
+          external: 81
+
+  # Monitoring configuration.
+  monitoring:
+    # Is monitoring enabled?
+    enabled: false
+    # Name of the service port this endpoint refers to.
+    port: "api"
+    # Metric scrape interval.
+    interval: 30s
+    # Scrape request path.
+    path: /metrics
+    # Scrape request timeout.
+    scrapeTimeout: 5s
+    # HonorLabels chooses the metric’s labels on collisions with target labels.
+    honorLabels: true
+    # Additional monitoring labels.
+    additionalLabels:
+      prometheus: default
+
+  # Probes configuration.
+  probes:
+    readiness:
+      initialDelaySeconds: 10
+      httpGet:
+        port: 8081
+        path: "/readiness"
+    liveness:
+      initialDelaySeconds: 10
+      httpGet:
+        port: 8081
+        path: "/healthz"
+
+  # Tracing configuration.
+  tracing:
+    # Jaeger configuration.
+    jaeger:
+      # Inject Jaeger Agent sidecar?
+      enabled: false
+      # The resources allocated for each replica, both requests and limits.
+      resources:
+        requests:
+          memory: 128Mi
+          cpu: 100m
+        limits:
+          memory: 128Mi
+          cpu: 100m
+
+  # Ingress configuration.
+  ingress:
+    enabled: false
+    labels: {}
+    annotations:
+      kubernetes.io/ingress.allow-http: "false"
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    className: nginx
+    tls:
+      - hosts:
+          - example.com
+        secretName: ing-ssl-secret
+    rules:
+      - host: example.com
+        paths:
+          - path: /api/example
+            pathType: ImplementationSpecific
+            port: 8080
+
+  valuesFrom:
+    env:
+      secret: {}
+      # - name: VAR_NAME
+      #   key: key
+      #   secretName: secretName
+      configmap: {}
+      # - name: VAR_NAME
+      #   key: key
+      #   configMapName: configMapName
+    envFrom:
+      secretRef: {}
+      # - some-secret
+      configMapRef: {}
+      # - some-configmap
+
+  # NodeSelector configuration of the validators.
+  nodeSelector: {}
+
+  # Deployment affinity configuration. If not set the default one will be used.
+  affinity: {}
+
+  # Tolerations of the validators pods.
+  tolerations: []
+
+  # Annotations used in the server resources.
+  annotations: {}
+
+# Annotations used in all application resources.
+annotations: {}
