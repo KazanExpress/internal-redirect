@@ -1,3 +1,9 @@
+## v0.3.1 (2023-01-18)
+
+### Fix
+
+- **helm**: improve default values
+
 ## v0.3.0 (2023-01-18)
 
 ### Feat
