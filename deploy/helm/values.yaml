@@ -48,10 +48,9 @@ server:
 
   # Application level configs.
   config:
-    debug: true
-    logger:
-      level: trace
-
+    title: "Internal Redirect"
+    message: "You will be redirected to internal service which is available only from the internal network. Please enable VPN and press the button below to continue."
+    button: "Follow redirect"
   # The resources allocated for each replica, both requests and limits.
   resources:
     requests:
@@ -144,7 +143,7 @@ server:
         paths:
           - path: /api/example
             pathType: ImplementationSpecific
-            port: 8080
+            port: 80
 
   valuesFrom:
     env:

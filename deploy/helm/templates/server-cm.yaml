@@ -8,4 +8,6 @@ metadata:
   annotations:
     {{- include "server.annotations" . | nindent 4 }}
 data:
-  APP_NAME: {{ .Chart.Name | quote }}
+  TITLE: {{ .Values.server.config.title | quote }}
+  MESSAGE: {{ .Values.server.config.message | quote }}
+  BUTTON: {{ .Values.server.config.button | quote }}
