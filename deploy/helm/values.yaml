@@ -15,7 +15,7 @@ server:
   # override full name of server
   nameOverride: ~
   # Docker image of the server application.
-  image: "ghcr.io/kazanexpress/internal-redirect:v0.2.0"
+  image: "ghcr.io/kazanexpress/internal-redirect:v0.3.0"
 
   autoscaling:
     enabled: false
