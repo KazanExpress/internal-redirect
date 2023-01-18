@@ -64,38 +64,28 @@ server:
   # Service configuration. Use for cluster migration.
   service:
     # Is service enabled?
-    enabled: false
+    enabled: true
     type: ClusterIP
     nameOverride: ""
     annotations: {}
     ports:
       # API configuration.
-      - name: api
+      - name: http
         # Protocol configuration
         protocol: TCP
         # Port configuration.
         ports:
           # Port inside the container.
-          internal: 8080
+          internal: 3000
           # External service port.
           external: 80
-      # Example API version 2 configuration
-      - name: api_v2
-        # Protocol configuration
-        protocol: UDP
-        #example new port
-        ports:
-          # Port inside the container.
-          internal: 8081
-          # External service port.
-          external: 81
 
   # Monitoring configuration.
   monitoring:
     # Is monitoring enabled?
     enabled: false
     # Name of the service port this endpoint refers to.
-    port: "api"
+    port: "http"
     # Metric scrape interval.
     interval: 30s
     # Scrape request path.
@@ -110,16 +100,16 @@ server:
 
   # Probes configuration.
   probes:
-    readiness:
-      initialDelaySeconds: 10
-      httpGet:
-        port: 8081
-        path: "/readiness"
-    liveness:
-      initialDelaySeconds: 10
-      httpGet:
-        port: 8081
-        path: "/healthz"
+    readiness: {}
+      # initialDelaySeconds: 10
+      # httpGet:
+      #   port: 8081
+      #   path: "/readiness"
+    liveness: {}
+      # initialDelaySeconds: 10
+      # httpGet:
+      #   port: 8081
+      #   path: "/healthz"
 
   # Tracing configuration.
   tracing:
