@@ -18,7 +18,8 @@ EXPOSE 3000
 ENV TITLE="Internal Redirect" \
     MESSAGE="You will be redirected to internal service which is available only from the internal network. Please enable VPN and press the button below to continue." \
     BUTTON="Follow redirect" \
-    PARAM="redirect"
+    PARAM="redirect" \
+    ALLOWED_URL_PATTERNS=".*"
 
 # Start the app
 CMD ["npm", "start"]

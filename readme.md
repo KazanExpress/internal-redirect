@@ -12,6 +12,7 @@ This page could be parametrized using these environment variables:
 * `MESSAGE` - message under title
 * `BUTTON` - text on redirect button
 * `PARAM` - name of query parameter from which redirect url should be extracted. Default is `redirect`
+* `ALLOWED_URL_PATTERNS` - comma separated list of allowed url to redirect regex patterns. By default everything is allowed (`.*`)
 
 ## Usage
 

@@ -52,6 +52,9 @@ server:
     message: "You will be redirected to internal service which is available only from the internal network. Please enable VPN and press the button below to continue."
     button: "Follow redirect"
     param: "redirect"
+    allowedPatterns:
+    - ".*"
+    - ""
   # The resources allocated for each replica, both requests and limits.
   resources:
     requests:
