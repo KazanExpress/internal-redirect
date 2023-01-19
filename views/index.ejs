@@ -5,8 +5,7 @@
     <title><%= process.env.TITLE %></title>
     <script>
       function redirect() {
-        var redirectUrl = new URL(window.location.href).searchParams.get("redirect");
-        window.location.href = redirectUrl;
+        window.location.href = new URL("<%= redirect %>");
       }
     </script>
   </head>

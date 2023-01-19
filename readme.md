@@ -11,6 +11,7 @@ This page could be parametrized using these environment variables:
 * `TITLE` - h1 and page title string
 * `MESSAGE` - message under title
 * `BUTTON` - text on redirect button
+* `PARAM` - name of query parameter from which redirect url should be extracted. Default is `redirect`
 
 ## Usage
 
