@@ -1,3 +1,9 @@
+## v0.5.0 (2023-01-19)
+
+### Feat
+
+- add allowed list of url patters
+
 ## v0.4.0 (2023-01-19)
 
 ### Feat
