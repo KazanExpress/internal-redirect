@@ -1,3 +1,9 @@
+## v0.4.0 (2023-01-19)
+
+### Feat
+
+- pass other query params to redirect url
+
 ## v0.3.2 (2023-01-18)
 
 ### Fix
