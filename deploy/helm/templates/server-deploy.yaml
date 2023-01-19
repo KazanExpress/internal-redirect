@@ -26,6 +26,8 @@ spec:
         {{- include "server.labels" . | nindent 8 }}
       annotations:
         {{- include "server.annotations" . | nindent 8 }}
+        checksum/config: {{ include (print $.Template.BasePath "/server-cm.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/server-secret.yaml") . | sha256sum }}
     spec:
       enableServiceLinks: false
       {{- if .Values.pullSecret }}
