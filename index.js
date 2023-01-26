@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
     // add all query parameters to the redirect url except the redirect parameter
     var params = new URLSearchParams(req.query);
     params.delete(paramName);
-    url.query = params;
-    redirectUrl = url.toString();
+    var strParams = params.toString();
+    redirectUrl = url.origin + url.pathname + (strParams.length > 0 ? '?' + strParams : '');
     if (!isAllowedURL(redirectUrl, patterns)) {
       console.log('URL not allowed: %s', redirectUrl)
       redirectUrl = "";
