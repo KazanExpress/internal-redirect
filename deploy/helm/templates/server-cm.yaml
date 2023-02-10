@@ -10,6 +10,5 @@ metadata:
 data:
   TITLE: {{ .Values.server.config.title | quote }}
   MESSAGE: {{ .Values.server.config.message | quote }}
-  BUTTON: {{ .Values.server.config.button | quote }}
   PARAMS: {{ .Values.server.config.param | quote }}
   ALLOWED_URL_PATTERNS: {{ .Values.server.config.allowedPatterns | join "," | quote }}

@@ -49,8 +49,7 @@ server:
   # Application level configs.
   config:
     title: "Internal Redirect"
-    message: "You will be redirected to internal service which is available only from the internal network. Please enable VPN and press the button below to continue."
-    button: "Follow redirect"
+    message: "You will be redirected to internal service which is available only from the internal network. Please enable VPN and click the link below to continue."
     param: "redirect"
     allowedPatterns:
     - ".*"

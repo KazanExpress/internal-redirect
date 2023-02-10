@@ -3,16 +3,10 @@
   <head>
     <meta name="robots" content="noindex">
     <title><%= process.env.TITLE %></title>
-    <script>
-      function redirect() {
-        window.location.href = new URL("<%= redirect %>");
-      }
-    </script>
   </head>
   <body>
     <h1><%= process.env.TITLE %></h1>
     <p> <%= process.env.MESSAGE %> </p>
-    <button onclick="redirect()"><%= process.env.BUTTON %></button>
-    <p>If you are unable to use JavaScript, please click <a href="<%= redirect %>">here</a> to redirect.</p>
+    <p>Please click <a href="<%= redirect %>">here</a> to redirect.</p>
   </body>
 </html>
