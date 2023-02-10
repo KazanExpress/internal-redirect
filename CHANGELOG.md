@@ -1,3 +1,9 @@
+## v0.6.0 (2023-02-10)
+
+### Feat
+
+- remove button, keep link only
+
 ## v0.5.1 (2023-01-26)
 
 ### Fix
